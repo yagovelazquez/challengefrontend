@@ -21,8 +21,13 @@ function Routes() {
           <>
             <Route path="/time-clock" element={<TimeClock />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path="/employees" element={<Employees />} />
-            <Route path="/reports" element={<Reports />} />
+            {user.type === "admin" && (
+              <>
+                <Route path="/employees" element={<Employees />} />
+                <Route path="/reports" element={<Reports />} />
+              </>
+            )}
+
             <Route path="/" element={<Navigate to="/time-clock" replace />} />
             <Route path="/finances" element={<Finances />} />
           </>
@@ -35,7 +40,7 @@ function Routes() {
             <Route path="*" element={<Navigate to="/login" replace />} />
           </>
         )}
-           <Route path="*" element={<Navigate to="/time-clock" replace />} />
+        <Route path="*" element={<Navigate to="/time-clock" replace />} />
       </RoutesReact>
     </>
   );

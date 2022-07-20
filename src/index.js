@@ -19,15 +19,16 @@ import "@fontsource/montserrat/900.css"
 
 
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-    <BrowserRouter>
     <ChakraProvider theme={theme}>
+    <BrowserRouter>
     <App />
-    </ChakraProvider>
     </BrowserRouter>
+    </ChakraProvider>
     </QueryClientProvider>
   </React.StrictMode>
 );

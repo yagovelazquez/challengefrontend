@@ -9,11 +9,14 @@ import LeftSideBar from "./../components/leftSideBar/LeftSideBar";
 import Box from "./../components/chakraUi/Box";
 import { useIsMutating } from "react-query";
 import LoadingModal from "../components/commom/LoadingModal";
+import config from "../config/appConfig";
 
 function App() {
   const { user, clearUser } = useUser();
   const logoutUser = useRef();
   let location = useLocation();
+
+
 
   useEffect(() => {
     if (user) {
@@ -53,7 +56,7 @@ function App() {
       <Box marginLeft={user ? "250px" : "0px"}>
         <Routes />
       </Box>
-      <ReactQueryDevtools />
+     {config.REACT_APP_NODE_ENV === "development" && <ReactQueryDevtools />}
     </>
   );
 }

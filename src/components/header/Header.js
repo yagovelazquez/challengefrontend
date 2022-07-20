@@ -7,9 +7,12 @@ import Text from "../chakraUi/Text";
 import { useNavigate } from "react-router-dom";
 import Popover from "./../commom/Popover";
 import Logout from "./Logout";
+import useFiles from "./../../hooks/useFiles";
+import config from "../../config/appConfig";
 
 function Header() {
-  const { user, clearUser } = useUser();
+  const { user } = useUser();
+  const { avatarData } = useFiles();
   const navigate = useNavigate();
 
   const gearClickHandler = () => {
@@ -22,16 +25,28 @@ function Header() {
 
   const PopOverTrigger = () => {
     return (
-      <Flex cursor="pointer" justify="center" alignItems="center" height="100%" _hover={hoverProps}>
-      <Avatar marginRight="15px" size="sm" src="/bag4.png" name={user.name} />
-      <Flex marginRight="3px" justify="flex-start" flexDir="column">
-        <Text textTransform="capitalize" fontWeight="500" fontSize=".9rem">
-          {user.name.toLowerCase()}
-        </Text>
-        <Text textTransform="capitalize" fontWeight="500" fontSize=".75rem">
-          {user.occupation.toLowerCase()}
-        </Text>
-      </Flex>
+      <Flex
+        cursor="pointer"
+        justify="center"
+        alignItems="center"
+        height="100%"
+        _hover={hoverProps}
+      >
+        <Avatar
+          marginRight="15px"
+          size="sm"
+          src={
+            avatarData[0] ? `${config.BASE_URL}/${avatarData[0]?.url}` : null
+          }
+        />
+        <Flex marginRight="3px" justify="flex-start" flexDir="column">
+          <Text textTransform="capitalize" fontWeight="500" fontSize=".9rem">
+            {user.name.toLowerCase()}
+          </Text>
+          <Text textTransform="capitalize" fontWeight="500" fontSize=".75rem">
+            {user.occupation.toLowerCase()}
+          </Text>
+        </Flex>
       </Flex>
     );
   };
@@ -51,12 +66,13 @@ function Header() {
         _hover={hoverProps}
         height="100%"
         padding="0 10px"
+        onClick={gearClickHandler}
       >
-        <Box size="1.2rem" onClick={gearClickHandler} as={BsGear} />
+        <Box size="1.2rem" as={BsGear} />
       </Flex>
-        <Popover PopoverTrigger={PopOverTrigger}>
-          <Logout />
-        </Popover>
+      <Popover PopoverTrigger={PopOverTrigger}>
+        <Logout />
+      </Popover>
     </Flex>
   );
 }

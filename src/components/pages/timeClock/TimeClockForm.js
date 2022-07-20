@@ -26,7 +26,8 @@ function TimeClockForm(props) {
         queryClient.cancelQueries(queryKeys.userClockTimes);
       },
       onSuccess: (values, variable) => {
-        queryClient.setQueryData([queryKeys.userClockTimes], (oldValue) => {
+  
+        queryClient.setQueryData([queryKeys.user,queryKeys.userClockTimes], (oldValue) => {
           const updatedClockTimes = _clone(oldValue);
           if (variable.clockType === "clockIn") {
             updatedClockTimes.unshift({ ...values });

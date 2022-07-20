@@ -5,25 +5,23 @@ import { queryKeys } from "../reactQuery/queryConstants";
 import config from "../config/appConfig";
 
 function useReports() {
+  const { user } = useUser();
+  let url = user.type === "admin" ? `${config.BASE_URL}/reports/all-total-hours-worked` :`${config.BASE_URL}/reports/user-total-hours-worked`
 
-    const {user} = useUser()
-
-    const { data: dataReports } = useQuery(
-        [queryKeys.user, queryKeys.reports],
-        ({ signal }) => {
-          return generalGetCall(`${config.BASE_URL}/reports/all-total-hours-worked`, user?.token);
-        },
-        {
-          enabled: !!user,
-        },
-
+  const { data: dataReports } = useQuery(
+    [queryKeys.user, queryKeys.reports],
+    ({ signal }) => {
+      return generalGetCall(
+        url,
+        user?.token
       );
+    },
+    {
+      enabled: !!user,
+    }
+  );
 
-
-
-     
-
-    return {dataReports};
+  return { dataReports };
 }
 
 export default useReports;

@@ -14,7 +14,7 @@ function TimeClockTable() {
 
 
   const { data: databaseData } = useQuery(
-    queryKeys.userClockTimes,
+    [queryKeys.user,queryKeys.userClockTimes],
     () => {
       return generalGetCall(`${config.BASE_URL}/clock-timer/user`,user.token)
     },
@@ -25,6 +25,7 @@ function TimeClockTable() {
       },
     }
   );
+
 
 
 

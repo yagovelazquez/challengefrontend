@@ -6,8 +6,8 @@ import config from "../../config/appConfig";
 import { generalPostCall } from "./../../lib/fetchServer";
 import useUser from "./../../hooks/useUser";
 
-function AddUserForm() {
-  const { updateUser, user } = useUser();
+function AddUserForm({onUserPin}) {
+  const {  user } = useUser();
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation(
@@ -19,7 +19,10 @@ function AddUserForm() {
       onMutate: () => {
         queryClient.cancelQueries(queryKeys.user);
       },
-      onSuccess: (data, values) => {},
+      onSuccess: (data, values) => {
+        onUserPin(data.pin)
+        queryClient.invalidateQueries("report")
+      },
     }
   );
 

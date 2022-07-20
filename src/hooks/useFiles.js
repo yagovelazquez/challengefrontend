@@ -3,6 +3,7 @@ import useUser from "./useUser";
 import { generalGetCall } from "../lib/fetchServer";
 import { queryKeys } from "../reactQuery/queryConstants";
 import config from "../config/appConfig";
+import { useMemo } from "react";
 
 function useFiles() {
 
@@ -21,9 +22,10 @@ function useFiles() {
       );
 
 
+      const avatarData = useMemo(() =>  dataFiles?.filter((data) => data.type === "avatar"), [dataFiles]);
+      const contractData = useMemo(() =>  dataFiles?.filter((data) => data.type === "contract"), [dataFiles]);
 
-      const avatarData = dataFiles?.filter((data) => data.type === "avatar");
-      const contractData = dataFiles?.filter((data) => data.type === "contract");
+
 
     return {avatarData, contractData};
 }
